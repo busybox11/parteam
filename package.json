@@ -4,6 +4,8 @@
   "description": "Web-based music listening room / shared controller",
   "main": "index.js",
   "scripts": {
+    "build:css": "tailwindcss -i ./public/tailwind.css -o ./public/style.css",
+    "watch:css": "tailwindcss -i ./public/tailwind.css -o ./public/style.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +21,8 @@
   "homepage": "https://github.com/busybox11/parteam#readme",
   "dependencies": {
     "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.0.13"
   }
 }
