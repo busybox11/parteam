@@ -1,0 +1,23 @@
+{
+  "name": "parteam",
+  "version": "1.0.0",
+  "description": "Web-based music listening room / shared controller",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/busybox11/parteam.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/busybox11/parteam/issues"
+  },
+  "homepage": "https://github.com/busybox11/parteam#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
