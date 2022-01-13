@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="/style.css" rel="stylesheet">
+
+    <title>ParTeam - Player</title>
+</head>
+<body class="relative bg-black text-white relative flex flex-col h-screen">
+    <div class="absolute top-0 left-0 h-14 w-full bg-red-900/50 flex flex-row px-6 py-2 items-center backdrop-blur-xl z-50">
+        <span>Par<b>Team</b> Player</span>
+    </div>
+
+    <div class="flex flex-row h-full">
+        <div id="app" class="flex flex-col h-full w-3/4 relative">
+            <div class="mt-16 mb-4 px-6 flex flex-col">hello world</div>
+
+            <div class="absolute bottom-0 left-0 w-full bg-red-900/25 flex flex-row items-center backdrop-blur-xl">
+                <div id="player"></div>
+
+                <div id="player-info" class="flex flex-col justify-center ml-6">
+                    <h3 class="text-2xl font-semibold">Creep</h3>
+                    <h5 class="text-lg">Radiohead</h5>
+                </div>
+            </div>
+        </div>
+
+        <div x-data="{tab: 'queue'}" class="relative flex flex-col h-full bg-red-900/25 w-1/4 pt-14">
+            <div class="flex w-full bg-red-900/30 backdrop-blur-xl">
+                <button @click="tab = 'queue'" :class="{'bg-red-900/50 border-b-2 border-red-800' : tab == 'queue'}" class="px-4 py-2 outline-none hover:bg-red-900/30">Playing queue</button>
+                <button @click="tab = 'users'" :class="{'bg-red-900/50 border-b-2 border-red-800' : tab == 'users'}" class="px-4 py-2 outline-none hover:bg-red-900/30">Users</button>
+            </div>
+
+            <div x-show="tab == 'queue'" id="playingqueue" class="flex flex-col space-y-4 p-6 h-full overflow-auto">
+            </div>
+
+            <div x-show="tab == 'users'" id="userslist" class="flex flex-col space-y-4 p-6 h-full overflow-auto">
+            </div>
+        </div>
+    </div>
+
+    <script defer src="/alpine.min.js"></script>
+    <script>
+        let vid = `<div class="flex flex-row space-x-6">
+                    <img src="https://i.ytimg.com/vi/I15sK7dNMOM/sddefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCghqEJQEGHgg6AJIWg&rs=AMzJL3kU-ASRLxWPLA8zWgwy15sQiZAx-Q" class="h-14 w-26">
+                    <div class="flex flex-col">
+                        <h3 class="text-xl font-semibold">あなぐらぐらし</h3>
+                        <h5 class="text-lg">Kikuo</h5>
+                    </div>
+                </div>`
+
+        let usr = `<div class="flex flex-row items-center space-x-4">
+                    <div class="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-full bg-red-900/50"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                    <div class="flex flex-col">
+                        <h3 class="text-xl font-semibold">Elric Montignac</h3>
+                        <h5 class="text-lg">Administrateur</h5>
+                    </div>
+                </div>`
+
+        let i = 0
+        while (i != 30) {
+            document.querySelector('#playingqueue').innerHTML += vid
+            document.querySelector('#userslist').innerHTML += usr
+            i++
+        }
+
+        var tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '200',
+                width: '356',
+                videoId: 'XFkzRNyygfk',
+                events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        var done = false;
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING && !done) {
+                setTimeout(stopVideo, 6000);
+                done = true;
+            }
+        }
+
+        function stopVideo() {
+            player.stopVideo();
+        }
+    </script>
+</body>
+</html>

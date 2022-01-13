@@ -9,6 +9,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'))
 })
 
+app.get('/player/:code', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/player.html'))
+})
+
 app.listen(port, () => {
     console.log(`Listening on :${port}`)
 })
