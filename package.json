@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/busybox11/parteam#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "postcss": "^8.4.5"
   },
   "devDependencies": {
     "tailwindcss": "^3.0.13"
