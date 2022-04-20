@@ -1,122 +1,331 @@
 <!doctype html>
-<html>
+<html class="bg-black">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#3c0e0e">
     
-    <link href="/style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Red Hat Text', 'sans-serif'],
+                    },
+                    keyframes: {
+						click: {
+							'0%, 100%': { transform: 'scale(1.00)' },
+							'50%': { transform: 'scale(0.98)' },
+						}
+					},
+					animation: {
+						click: 'click 0.2s ease-out',
+					},
+                    screens: {
+                        'sm': '345px'
+                    }
+				}
+			}
+		}
+	</script>
+    <style type="text/tailwindcss">
+        @layer base {
+			html {
+				-webkit-tap-highlight-color: transparent;
+			}
 
-    <title>ParTeam - Player</title>
+            a, button {
+                @apply active:animate-click
+            }
+		}
+
+        @layer utilities {
+            [x-cloak] { display: none !important; }
+        }
+
+        input[type="time"]::-webkit-calendar-picker-indicator{
+            filter: invert(70%);
+        }
+    </style>
+    <link href='//fonts.googleapis.com/css?family=Red+Hat+Text:300,400,600,700' rel='stylesheet'>
 </head>
-<body class="relative bg-black text-white relative flex flex-col h-screen">
-    <div class="absolute top-0 left-0 h-14 w-full bg-red-900/50 flex flex-row px-6 py-2 items-center backdrop-blur-xl z-50">
-        <span class="flex-shrink-0">Par<b>Team</b> Player</span>
+<body
+    x-data="{ tab: 'player' }"
+    class="bg-zinc-900/25 text-white relative flex flex-col min-h-screen"
+    :class="tab == 'player' && 'bg-gradient-to-b from-red-700/50 to-red-900/10'"
+>
+    <nav class="flex justify-between items-center px-4 py-3 w-full fixed top-0 left-0 right-0 //bg-white/25 backdrop-blur-lg z-50">
+        <span x-show="tab !== 'player'" x-transition class="text-zinc-500">MODUS - Joji</span>
+        <div class="flex flex-row items-center gap-4 ml-auto">
+            <div class="relative p-1">
+                <span class="text-xs text-center absolute -top-1 -right-1 bg-red-500 h-4 w-4 rounded-full text-white">3</span>
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </div>
 
-        <input type="text" autocomplete="off" placeholder="Rechercher un titre, un artiste..." class="px-4 py-2 mx-auto rounded-xl bg-red-900/75 w-1/2 outline-none transition focus:ring-2 focus:ring-red-700 focus:bg-red-900">
-
-        <div class="flex flex-col items-end leading-3">
-            <small class="text-gray-300 uppercase">Code</small>
-            <span class="text-lg font-semibold leading-5">test</span>
+            <div class="relative p-1">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="flex flex-row h-full">
-        <div id="app" class="flex flex-col h-full w-3/4 relative">
-            <div class="mt-16 mb-4 px-6 flex flex-col">hello world</div>
+    <div x-show="tab == 'player'" x-transition class="absolute inset-0 md:container mx-auto flex flex-col md:grid grid-cols-2 gap-6 px-4 pt-16 md:pb-20 h-full overflow-auto">
+        <div class="flex flex-col sm:flex-row md:flex-col gap-4 sm:items-end md:items-start">
+            <img class="h-32 w-32 md:h-auto md:w-1/2 shadow-xl" src="https://i.scdn.co/image/ab67616d0000b27323c552a7a4fdafac02e08c34">
+            <div class="flex flex-col w-full">
+                <div class="flex flex-row justify-between">
+                    <div>
+                        <h5 class="text-xl leading-4 font-semibold">MODUS</h5>
+                        <span class="text-sm text-white/75">Joji</span>
+                    </div>
 
-            <div class="absolute bottom-0 left-0 w-full bg-red-900/25 flex flex-row items-center backdrop-blur-xl">
-                <div id="player"></div>
+                    <div class="flex">
+                        <button class="p-2">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                        </button>
+                        <button class="p-2">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                        </button>
+                    </div>
+                </div>
 
-                <div id="player-info" class="flex flex-col justify-center ml-6">
-                    <h3 class="text-2xl font-semibold">Creep</h3>
-                    <h5 class="text-lg">Radiohead</h5>
+                <div class="mt-3 flex flex-col gap-1 w-full">
+                    <div class="h-0.5 w-full bg-white/25">
+                        <div class="h-0.5 w-3/5 bg-white"></div>
+                    </div>
+
+                    <div class="flex justify-between w-full text-white/50">
+                        <small>2:12</small>
+                        <small>3:27</small>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div x-data="{tab: 'queue'}" class="relative flex flex-col h-full bg-red-900/25 w-1/4 pt-14">
-            <div class="flex w-full bg-red-900/30 backdrop-blur-xl">
-                <button @click="tab = 'queue'" :class="{'bg-red-900/50 border-b-2 border-red-800' : tab == 'queue'}" class="px-4 py-2 outline-none hover:bg-red-900/30">Playing queue</button>
-                <button @click="tab = 'users'" :class="{'bg-red-900/50 border-b-2 border-red-800' : tab == 'users'}" class="px-4 py-2 outline-none hover:bg-red-900/30">Users</button>
-            </div>
+        <div class="flex flex-col">
+            <small class="tracking-widest uppercase text-white/60 mb-2">Next songs in queue</small>
 
-            <div x-show="tab == 'queue'" id="playingqueue" class="flex flex-col space-y-4 p-6 h-full overflow-auto">
-            </div>
+            <div class="flex flex-col gap-4 overflow-y-auto pb-20 -ml-4 -mr-4 px-4">
+                <div class="flex flex-row gap-3 items-center">
+                    <img class="h-12 w-12 shadow-lg" src="https://i.scdn.co/image/ab67616d0000b273af4d07491a08100934dc0411">
+                    <div class="flex flex-col w-full leading-5">
+                        <h5 class="font-semibold">Blue Lights</h5>
+                        <span class="text-xs font-light text-white/75">Jorja Smith</span>
+                    </div>
+                </div>
 
-            <div x-show="tab == 'users'" id="userslist" class="flex flex-col space-y-4 p-6 h-full overflow-auto">
+                <div class="flex flex-row gap-3 items-center">
+                    <img class="h-12 w-12 shadow-lg" src="https://i.scdn.co/image/ab67616d0000b2739e1cfc756886ac782e363d79">
+                    <div class="flex flex-col w-full leading-5">
+                        <h5 class="font-semibold">The Less I Know The Better</h5>
+                        <span class="text-xs font-light text-white/75">Tame Impala</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-3 items-center">
+                    <img class="h-12 w-12 shadow-lg" src="https://i.scdn.co/image/ab67616d0000b2739e495fb707973f3390850eea">
+                    <div class="flex flex-col w-full leading-5">
+                        <h5 class="font-semibold">Heat Waves</h5>
+                        <span class="text-xs font-light text-white/75">Glass Animals</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-3 items-center">
+                    <img class="h-12 w-12 shadow-lg" src="https://i.scdn.co/image/ab67616d0000b2733552d3f419afe41cf9b0bd0a">
+                    <div class="flex flex-col w-full leading-5">
+                        <h5 class="font-semibold">Stargazing</h5>
+                        <span class="text-xs font-light text-white/75">The Neighbourhood</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-3 items-center">
+                    <img class="h-12 w-12 shadow-lg" src="https://i.scdn.co/image/ab67616d0000b273e2119f640f9cdf0dd9c87816">
+                    <div class="flex flex-col w-full leading-5">
+                        <h5 class="font-semibold">Evil Fantasy</h5>
+                        <span class="text-xs font-light text-white/75">Freddie Dredd</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-3 items-center">
+                    <img class="h-12 w-12 shadow-lg" src="https://i.scdn.co/image/ab67616d0000b273031fc4721f64d6053f9b28b9">
+                    <div class="flex flex-col w-full leading-5">
+                        <h5 class="font-semibold">Stupeflip vite !!!</h5>
+                        <span class="text-xs font-light text-white/75">Stupeflip, Cadillac</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <div x-show="tab == 'logs'" x-transition class="absolute inset-0 md:container mx-auto h-full">
+        <div class="flex flex-col gap-4 justify-end overflow-y-auto px-4 pt-16 pb-20 min-h-full">
+            <div class="flex justify-between gap-3 items-center text-zinc-500">
+                <span class="italic text-sm leading-4 -ml-0.5">You logged in to this playing session</span>
+                <small class="text-zinc-500">13:51</small>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between gap-3 items-center">
+                    <span class="text-sm leading-4"><b>DJ</b> added this song</span>
+                    <small class="text-zinc-500">13:52</small>
+                </div>
+                <div class="flex flex-row gap-3 items-center">
+                    <img class="h-12 w-12 shadow-lg" src="https://i.scdn.co/image/ab67616d0000b273e2119f640f9cdf0dd9c87816">
+                    <div class="flex flex-col w-full leading-5">
+                        <h5 class="font-semibold">Evil Fantasy</h5>
+                        <span class="text-xs font-light text-white/75">Freddie Dredd</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between gap-3 items-center -ml-4 -mr-4 px-4 py-2 bg-yellow-900/25 text-zinc-300">
+                <span class="flex items-center text-sm leading-4">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                    <span><b>Eggs</b> - Your Neighbors</span>
+                </span>
+                <small class="text-zinc-500">13:54</small>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between gap-3 items-center">
+                    <span class="text-sm leading-4"><b>Admin</b> removed this song</span>
+                    <small class="text-zinc-500">13:56</small>
+                </div>
+                <div class="flex flex-row gap-3 items-center">
+                    <img class="h-12 w-12 shadow-lg" src="https://i.scdn.co/image/ab67616d0000b273b5d2a7e29794ff7e91305aa8">
+                    <div class="flex flex-col w-full leading-5">
+                        <h5 class="font-semibold">Tailwhip</h5>
+                        <span class="text-xs font-light text-white/75">Men I Trust</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between gap-3 items-center">
+                    <span class="text-sm leading-4"><b>5 users</b> voted for this song</span>
+                    <small class="text-zinc-500">13:58</small>
+                </div>
+                <div class="flex flex-row gap-3 items-center">
+                    <img class="h-12 w-12 shadow-lg" src="https://i.scdn.co/image/ab67616d0000b273031fc4721f64d6053f9b28b9">
+                    <div class="flex flex-col w-full leading-5">
+                        <h5 class="font-semibold">Stupeflip vite !!!</h5>
+                        <span class="text-xs font-light text-white/75">Stupeflip, Cadillac</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between gap-3 items-center -ml-4 -mr-4 px-4 py-2 bg-red-900/25 text-zinc-300">
+                <span class="flex items-center text-sm leading-4">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                    <span><b>MODUS</b> - Joji</span>
+                </span>
+                <small class="text-zinc-500">13:58</small>
+            </div>
+
+            <div class="flex justify-between gap-3 items-center -ml-4 -mr-4 px-4 py-2 bg-zinc-900 text-zinc-300">
+                <span class="text-sm leading-4"><b>Admin</b> changed the rules for this playing session</span>
+                <small class="text-zinc-500">14:01</small>
+            </div>
+        </div>
+    </div>
+
+    <div x-show="tab == 'browse'" x-transition class="absolute inset-0 md:container mx-auto h-full">
+        <div class="flex flex-col gap-4 overflow-y-auto px-4 pt-16 pb-20 min-h-full">
+            <h2 class="text-3xl font-semibold">Browse</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <button class="flex bg-sky-900 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">Charts</span>
+
+                    <img src="https://charts-images.scdn.co/assets/locale_en/regional/daily/region_global_large.jpg" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-orange-900 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">Recommended</span>
+
+                    <img src="https://i.scdn.co/image/ab67706f00000003de003b0b2d32e0c208245078" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-red-900 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">History</span>
+
+                    <img src="https://i.scdn.co/image/ab67616d0000b27323c552a7a4fdafac02e08c34" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-blue-900 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">People</span>
+
+                    <img src="https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+            </div>
+
+            <h2 class="text-2xl font-semibold mt-4">Genres</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <button class="flex bg-purple-900 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">Pop</span>
+
+                    <img src="https://t.scdn.co/images/0a74d96e091a495bb09c0d83210910c3" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-emerald-800 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">Indie</span>
+
+                    <img src="https://i.scdn.co/image/ab67706f000000025f7327d3fdc71af27917adba" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-yellow-900 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">Dance / Electronic</span>
+
+                    <img src="https://i.scdn.co/image/ab67706f000000020377baccf69ede3cf1a26eff" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-red-800 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">Rock</span>
+
+                    <img src="https://i.scdn.co/image/ab67706f00000002fe6d8d1019d5b302213e3730" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-zinc-800 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">Hip-Hop</span>
+
+                    <img src="https://i.scdn.co/image/ab67706f000000029bb6af539d072de34548d15c" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-purple-700 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">Mood</span>
+
+                    <img src="https://i.scdn.co/image/ab67706f00000002aa93fe4e8c2d24fc62556cba" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-lime-600 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">Party</span>
+
+                    <img src="https://i.scdn.co/image/ab67706f00000002caa115cbdb8cd3d39d67cdc0" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+
+                <button class="flex bg-purple-900 rounded-xl drop-shadow-xl h-28 overflow-hidden relative">
+                    <span class="absolute top-3 left-4 right-4 text-xl font-semibold z-20 text-left">R&B</span>
+
+                    <img src="https://i.scdn.co/image/ab67706f000000023c5a4aaf5df054a9beeb3d82" class="z-10 h-16 w-16 transform rotate-6 shadow-lg absolute -bottom-2 right-4">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="grid grid-flow-col auto-cols-fr items-center px-6 py-3 w-full fixed bottom-0 left-0 right-0 bg-black/25 text-white/50 backdrop-blur-lg z-50">
+        <button @click="tab = 'player'" class="flex flex-col items-center outline-none" :class="tab == 'player' && 'text-white'">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <small>Now playing</small>
+        </button>
+        <button @click="tab = 'logs'" class="flex flex-col items-center outline-none" :class="tab == 'logs' && 'text-white'">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            <small>Logs</small>
+        </button>
+        <button @click="tab = 'browse'" class="flex flex-col items-center outline-none" :class="tab == 'browse' && 'text-white'">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            <small>Browse</small>
+        </button>
+    </nav>
+
     <script defer src="/alpine.min.js"></script>
-    <script>
-        let vid = `<div class="flex flex-row space-x-6">
-                    <img src="https://i.ytimg.com/vi/I15sK7dNMOM/sddefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCghqEJQEGHgg6AJIWg&rs=AMzJL3kU-ASRLxWPLA8zWgwy15sQiZAx-Q" class="h-14 w-26 flex-shrink-0">
-                    <div class="flex flex-col w-full">
-                        <h3 class="text-xl font-semibold truncate">あなぐらぐらし</h3>
-                        <h5 class="text-lg truncate">Kikuo</h5>
-                    </div>
-                    <div class="flex flex-row items-center space-x-4 flex-shrink-0">
-                        <div class="relative">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                            <div class="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-red-900 flex"><small class="m-auto mb-auto">3</small></div>
-                        </div>
-                        <div class="relative">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-fast-forward -rotate-90"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>
-                            <div class="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-red-900 flex"><small class="m-auto mb-auto">2</small></div>
-                        </div>
-                    </div>
-                </div>`
-
-        let usr = `<div class="flex flex-row items-center space-x-4">
-                    <div class="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-full bg-red-900/50"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
-                    <div class="flex flex-col">
-                        <h3 class="text-xl font-semibold">Elric Montignac</h3>
-                        <h5 class="text-lg">Administrateur</h5>
-                    </div>
-                </div>`
-
-        let i = 0
-        while (i != 30) {
-            document.querySelector('#playingqueue').innerHTML += vid
-            document.querySelector('#userslist').innerHTML += usr
-            i++
-        }
-
-        var tag = document.createElement('script');
-
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '200',
-                width: '356',
-                videoId: 'XFkzRNyygfk',
-                events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            event.target.playVideo();
-        }
-
-        var done = false;
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.PLAYING && !done) {
-                setTimeout(stopVideo, 6000);
-                done = true;
-            }
-        }
-
-        function stopVideo() {
-            player.stopVideo();
-        }
-    </script>
 </body>
-</html>

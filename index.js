@@ -9,8 +9,12 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/index.html'))
 })
 
-app.get('/player/:code', (req, res) => {
+app.get('/player', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/player.html'))
+})
+
+app.get('/player/:code', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/room.html'))
 })
 
 app.listen(port, () => {
